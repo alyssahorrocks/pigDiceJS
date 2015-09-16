@@ -1,12 +1,9 @@
-#show-contact {
-  display: none;
-}
 
-.contact {
+.clickable{
   cursor: pointer;
   color: #0088cc;
 }
 
-.contact:hover {
+.clickable:hover {
   text-decoration: underline;
 }
