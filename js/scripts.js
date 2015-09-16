@@ -28,10 +28,6 @@ var dice = function() {
   dice = "";
 };
 
-// var valueCheck = function() {
-//   if (this === 1)
-//
-// }
 
 
 $(document).ready(function() {
