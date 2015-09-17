@@ -1,9 +1,10 @@
 
 // collects the value of each roll of the dice
 //AHB - This is turn score.
-function Collector(total, finalScore) {
+function Collector(total, finalScore, finalScore2) {
   this.total = [];
-  this.finalScore = 0;
+  this.finalScore1 = 0;
+  this.finalScore2 = 0;
 }
 
 Collector.prototype.turnTotal = function() {
@@ -15,20 +16,24 @@ Collector.prototype.turnTotal = function() {
   return turnTotal;
 }
 
-Collector.prototype.addScore = function() {
-  this.finalScore = (this.finalScore) + (this.turnTotal());
+Collector.prototype.addScore1 = function() {
+  this.finalScore1 = (this.finalScore1) + (this.turnTotal());
 }
 
+Collector.prototype.addScore2 = function() {
+  this.finalScore2 = (this.finalScore2) + (this.turnTotal());
+}
 // creates a player
-function Player(user, playerTotal) {
+function Player(user, playerTotal, playerSwitch) {
   this.user = user;
   this.playerTotal = []
+  this.playerSwitch = true;
 }
 
-  var dice = function() {
-    return Math.floor(Math.random() * 6) + 1;
-    dice = "";
-  };
+var dice = function() {
+  return Math.floor(Math.random() * 6) + 1;
+  dice = "";
+};
 
 $(document).ready(function() {
 
@@ -44,33 +49,65 @@ $(document).ready(function() {
     $(".player-1").text(player1.user);
     $(".player-2").text(player2.user);
 
+
     $('#roll').click(function() {
-      //AHB - gets them a value for a roll.
       var newRoll = dice();
-      //AHB - passes that roll value into the .die class for front-end visual.
-      if (newRoll !== 1) {
-        $(".die").text(newRoll);
-        (turn.total).push(newRoll);
-        $(".player1-turnScore").text(turn.turnTotal());
+
+      if (player1.playerSwitch === true) {
+        if (newRoll !== 1) {
+          $(".die").text(newRoll);
+          (turn.total).push(newRoll);
+          $(".player1-turnScore").text(turn.turnTotal());
+        } else {
+          console.log("player 1 rolled 1. end turn");
+          player1.playerSwitch = false;
+
+        }
+      } else {
+        if (newRoll !== 1) {
+          $(".die").text(newRoll);
+          (turn.total).push(newRoll);
+
+          $(".player2-turnScore").text(turn.turnTotal());
+        } else {
+          console.log("player 2 rolled 1. end turn");
+          player1.playerSwitch = true;
+
+        }
       }
 
+      $("#hold").off();
       $("#hold").click(function() {
-        turn.addScore();
-        $(".player1-piggy-bank").text(turn.finalScore);
-        if (turn.finalScore >= 50) {
-          alert("You win!");
-          turn.turnTotal = 0;
-          turn.finalScore = 0;
-        $(".player1-piggy-bank").empty();
-        };
-        $(".player1-turnScore").empty();
-        turn.total = []
-      });
+        console.log(player1.playerSwitch)
+        if (player1.playerSwitch === true) {
+          turn.addScore1();
+          $(".player1-piggy-bank").text(turn.finalScore1);
+          if (turn.finalScore1 >= 50) {
+            alert(player1.user + "You win!");
+            turn.turnTotal = 0;
+            turn.finalScore1 = 0;
+            $(".player1-piggy-bank").empty();
+          };
+          player1.playerSwitch = false;
+          $(".player1-turnScore").empty();
+          turn.total = []
+          this.turnTotal = 0;
 
-      //AHB - this creates new array to hold total score for each turn.
-      //AHB - where is bank coming from here?
-      //AHB - Need a constructor for 'bank'?
-      var final = player1.playerTotal.push(newRoll);
+        } else {
+          turn.addScore2();
+          $(".player2-piggy-bank").text(turn.finalScore2);
+          if (turn.finalScore2 >= 50) {
+            alert(player2.user + "You win!");
+            turn.turnTotal = 0;
+            turn.finalScore2 = 0;
+            $(".player2-piggy-bank").empty();
+          };
+          player1.playerSwitch = true;
+          $(".player2-turnScore").empty();
+          turn.total = []
+        }
+      debugger;
+      });
 
     });
   });
