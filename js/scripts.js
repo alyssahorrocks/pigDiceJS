@@ -54,24 +54,27 @@ $(document).ready(function() {
       var newRoll = dice();
 
       if (player1.playerSwitch === true) {
+        $('#player2style').css('color', 'black');
+        $('#player1style').css('color', 'red');
         if (newRoll !== 1) {
           $(".die").text(newRoll);
           (turn.total).push(newRoll);
           $(".player1-turnScore").text(turn.turnTotal());
         } else {
-          console.log("player 1 rolled 1. end turn");
           player1.playerSwitch = false;
-
+          alert(player1.user  + "'s turn is over.'")
         }
       } else {
+        $('#player1style').css('color', 'black');
+        $('#player2style').css('color', 'red');
         if (newRoll !== 1) {
           $(".die").text(newRoll);
           (turn.total).push(newRoll);
 
           $(".player2-turnScore").text(turn.turnTotal());
         } else {
-          console.log("player 2 rolled 1. end turn");
           player1.playerSwitch = true;
+          alert(player2.user + "'s turn is over.'")
 
         }
       }
