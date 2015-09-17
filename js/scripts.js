@@ -39,8 +39,9 @@ $(document).ready(function() {
     var Player1 = new Player(player1Name);
     var Player2 = new Player(player2Name);
 debugger;
-
-
+    $(".player-1").text(Player1.user);
+    $(".player-2").text(Player2.user);
+    debugger;
   });
 
 
