@@ -25,13 +25,13 @@ function Player(user, playerTotal) {
   this.playerTotal = []
 }
 
-
-$(document).ready(function() {
-
   var dice = function() {
     return Math.floor(Math.random() * 6) + 1;
     dice = "";
   };
+
+$(document).ready(function() {
+
 
   $("form#player").submit(function(event) {
     event.preventDefault();
@@ -61,10 +61,10 @@ $(document).ready(function() {
           alert("You win!");
           turn.turnTotal = 0;
           turn.finalScore = 0;
-        };
-        turn.total = []
-        $(".player1-turnScore").empty();
         $(".player1-piggy-bank").empty();
+        };
+        $(".player1-turnScore").empty();
+        turn.total = []
       });
 
       //AHB - this creates new array to hold total score for each turn.
