@@ -1,6 +1,4 @@
 
-// collects the value of each roll of the dice
-//AHB - This is turn score.
 function Collector(total, finalScore, finalScore2) {
   this.total = [];
   this.finalScore1 = 0;
@@ -8,7 +6,6 @@ function Collector(total, finalScore, finalScore2) {
 }
 
 Collector.prototype.turnTotal = function() {
-  // var total = eval((this.total).join('+'));
   var turnTotal = 0;
   (this.total).forEach(function(value) {
     turnTotal = turnTotal + value;
@@ -23,7 +20,6 @@ Collector.prototype.addScore1 = function() {
 Collector.prototype.addScore2 = function() {
   this.finalScore2 = (this.finalScore2) + (this.turnTotal());
 }
-// creates a player
 function Player(user, playerTotal, playerSwitch) {
   this.user = user;
   this.playerTotal = []
@@ -49,11 +45,12 @@ $(document).ready(function() {
     $(".player-1").text(player1.user);
     $(".player-2").text(player2.user);
 
-
+    $("#roll").off()
     $('#roll').click(function() {
       var newRoll = dice();
 
       if (player1.playerSwitch === true) {
+
         $('#player2style').css('color', 'black');
         $('#player1style').css('color', 'red');
         if (newRoll !== 1) {
@@ -62,9 +59,12 @@ $(document).ready(function() {
           $(".player1-turnScore").text(turn.turnTotal());
         } else {
           player1.playerSwitch = false;
+          turn.total = []
+          $(".player1-turnScore").empty();
           alert(player1.user  + "'s turn is over.'")
         }
       } else {
+
         $('#player1style').css('color', 'black');
         $('#player2style').css('color', 'red');
         if (newRoll !== 1) {
@@ -74,9 +74,12 @@ $(document).ready(function() {
           $(".player2-turnScore").text(turn.turnTotal());
         } else {
           player1.playerSwitch = true;
+          turn.total = []
+          $(".player2-turnScore").empty();
           alert(player2.user + "'s turn is over.'")
 
         }
+
       }
 
       $("#hold").off();
@@ -99,7 +102,7 @@ $(document).ready(function() {
         } else {
           turn.addScore2();
           $(".player2-piggy-bank").text(turn.finalScore2);
-          if (turn.finalScore2 >= 50) {
+          if (turn.finalScore2 >= 100) {
             alert(player2.user + "You win!");
             turn.turnTotal = 0;
             turn.finalScore2 = 0;
