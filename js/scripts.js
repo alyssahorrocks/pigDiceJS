@@ -54,24 +54,19 @@ $(document).ready(function() {
         $(".player1-turnScore").text(turn.turnTotal());
       }
 
-    $("#hold").click(function() {
-      turn.addScore();
-      $(".player1-piggy-bank").text(turn.finalScore);
-      turn.total = []
-      $(".player1-turnScore").empty();
+      $("#hold").click(function() {
+        turn.addScore();
+        $(".player1-piggy-bank").text(turn.finalScore);
+        if (turn.finalScore >= 50) {
+          alert("You win!");
+          turn.turnTotal = 0;
+          turn.finalScore = 0;
+        };
+        turn.total = []
+        $(".player1-turnScore").empty();
+        $(".player1-piggy-bank").empty();
+      });
 
-
-    //   var tempScore = 0;
-    //   if tempScore > 0(); {
-    //
-    //
-    //   } else {
-    //   var tempScore = turn.turnTotal()
-    //   $(".player1-piggy-bank").text(turn.totalScore());
-    //
-    // }
-
-    });
       //AHB - this creates new array to hold total score for each turn.
       //AHB - where is bank coming from here?
       //AHB - Need a constructor for 'bank'?
